@@ -91,11 +91,11 @@ The data pipeline would be as follows:
 
 
 **Advantages**
-<br>Scalability: BigQuery is a highly scalable data warehouse that can handle large volumes of data, making it well-suited for this use case.
-<br>Ease of use: Fivetran and dbt Cloud and BigQuery are all cloud-based options that are easy to set up and use. They provide a user-friendly interface for data integration, storage and transformation.
-<br>Data governance: dbt Cloud provides version control and testing capabilities, which are important for maintaining data governance and ensuring data accuracy. Fivetran handles schema and data changes for you ensuring data is always up to date and clean. 
-<br>Integration: All tools chosen integrate seamlessly with one another with easy steps for upkeep monitoring and maintenance. 
-<br>Visualization: Tableau provides a wide range of visualization options and is well-suited for creating user-friendly dashboards.
+<br>**Scalability**: BigQuery is a highly scalable data warehouse that can handle large volumes of data, making it well-suited for this use case.
+<br>**Ease of use**: Fivetran and dbt Cloud and BigQuery are all cloud-based options that are easy to set up and use. They provide a user-friendly interface for data integration, storage and transformation.
+<br>**Data governance**: dbt Cloud provides version control and testing capabilities, which are important for maintaining data governance and ensuring data accuracy. Fivetran handles schema and data changes for you ensuring data is always up to date and clean. 
+<br>**Integration**: All tools chosen integrate seamlessly with one another with easy steps for upkeep monitoring and maintenance. 
+<br>**Visualization**: Tableau provides a wide range of visualization options and is well-suited for creating user-friendly dashboards.
 
 Overall, this stack provides a robust and scalable solution that ensures a seamless flow of data from source to dashboard.
 
@@ -123,31 +123,31 @@ To be transparent, to implement the below solution is outside my scope of expert
 To automate the filtering process, you could build a machine learning model that classifies comments as legitimate/illegitimate based on the available data. The approach would be as such:
 
 #### **Model Development:**
-<li>**Data collection**: Gather data on user properties (e.g., registration status, activity level), user actions (e.g., past reviews and comments), and comment content (e.g., text, presence of unauthorized advertising).
-<li>**Data preprocessing**: Clean and preprocess the data to remove any irrelevant or redundant features, handle missing values, and normalize the data.
-<li>**Feature engineering**: Create new features based on the available data, such as user status, reputation score, presence of specific keywords or sentiment analysis. 
-<li>**Model selection**: Choose an appropriate machine learning model to classify comments as legitimate/illegitimate. The model can be a binary classification model such as logistic regression or a decision tree that predicts a binary label (legitimate/illegitimate) or a regression model that predicts a continuous score representing the comment's authenticity. A score would enable an additional layer of classification logic at the discretion of the stakeholders which could be desirable, while a binary option would leave this level of decision making down to the model. 
-<li>**Training and testing**: Split the data into training and testing sets, train the model on the training set, and evaluate its performance on the testing set. Use cross-validation to ensure the model's robustness. The training set would be a historical set where data was classified by humans. 
-<li>**Deployment/Integration**: Once the model is trained, deploy it as a real-time decision support system that takes user properties, user actions, and comment content as input and outputs a label of legitimate or illegitimate. Integrate the decision support system with the existing Customer Support system to provide automated labeling of comments.
+<br>**Data collection**: Gather data on user properties (e.g., registration status, activity level), user actions (e.g., past reviews and comments), and comment content (e.g., text, presence of unauthorized advertising).
+<br>**Data preprocessing**: Clean and preprocess the data to remove any irrelevant or redundant features, handle missing values, and normalize the data.
+<br>**Feature engineering**: Create new features based on the available data, such as user status, reputation score, presence of specific keywords or sentiment analysis. 
+<br>**Model selection**: Choose an appropriate machine learning model to classify comments as legitimate/illegitimate. The model can be a binary classification model such as logistic regression or a decision tree that predicts a binary label (legitimate/illegitimate) or a regression model that predicts a continuous score representing the comment's authenticity. A score would enable an additional layer of classification logic at the discretion of the stakeholders which could be desirable, while a binary option would leave this level of decision making down to the model. 
+<br>**Training and testing**: Split the data into training and testing sets, train the model on the training set, and evaluate its performance on the testing set. Use cross-validation to ensure the model's robustness. The training set would be a historical set where data was classified by humans. 
+<br>**Deployment/Integration**: Once the model is trained, deploy it as a real-time decision support system that takes user properties, user actions, and comment content as input and outputs a label of legitimate or illegitimate. Integrate the decision support system with the existing Customer Support system to provide automated labeling of comments.
 
 #### **Tools and libraries**:
-<li>**Language**: Python is a good choice for this task as it has many libraries for machine learning and data preprocessing.
-<li>**Scikit-learn**: A popular machine learning library in Python that provides various classification models and tools for data preprocessing and feature engineering.
-<li>**Pandas**: A data manipulation library in Python that can handle data preprocessing tasks such as cleaning and normalization.
-<li>**NLTK (Natural Language Toolkit)**: A library in Python for natural language processing, which can be used to preprocess the comment text data. This could also be achieved via a basic logic of certain words being flagged.
+<br>**Language**: Python is a good choice for this task as it has many libraries for machine learning and data preprocessing.
+<br>**Scikit-learn**: A popular machine learning library in Python that provides various classification models and tools for data preprocessing and feature engineering.
+<br>**Pandas**: A data manipulation library in Python that can handle data preprocessing tasks such as cleaning and normalization.
+<br>**NLTK (Natural Language Toolkit)**: A library in Python for natural language processing, which can be used to preprocess the comment text data. This could also be achieved via a basic logic of certain words being flagged.
 
 #### **Algorithms**:
-<li>Logistic regression: A simple and interpretable binary classification model that works well with high-dimensional data.
-<li>Decision tree: A tree-based model that can handle non-linear relationships between the features and the target variable.
+<br>**Logistic regression**: A simple and interpretable binary classification model that works well with high-dimensional data.
+<br>**Decision tree**: A tree-based model that can handle non-linear relationships between the features and the target variable.
 
 
 #### **Real-time Deployment:**
-<li>**Data input**: The CRM system sends comment data to the machine learning model through an API with the relevant user properties (e.g., registration status, activity level), user actions (e.g., past reviews and comments), and comment content (e.g., text, presence of unauthorized advertising).
-<li>**Data preprocessing**: The machine learning model preprocesses the input data to clean and transform it into a format that can be used for model inference (feature engineering, data normalization, and data cleaning).
-<li>**Model inference and prediction outpu**t: The machine learning model uses the preprocessed data to make a prediction on the legitimacy of the comment. The machine learning model returns the predicted label or score as a JSON response to the CRM system. 
-<li>**Action triggering**: Based on the predicted label or score, the CRM system can take action on the comment, such as flagging it for further review, removing it, or sending an alert to the Customer Support team. The action can be triggered automatically based on predefined logic.
-<li>**Feedback loop**: The CRM system can also provide feedback to the machine learning model on the accuracy and relevance of the predictions. This can be done by sending labeled data or user feedback to the model for retraining or fine-tuning. The feedback loop can help improve the model's performance over time and ensure its relevance to the business needs.
-<li>**Real-time**: My understanding is that real-time deployment could be achieved through microservices architecture with a message broker, such as Apache Kafka or RabbitMQ, deployed on Google Cloud Platform (GCP).
+<br>**Data input**: The CRM system sends comment data to the machine learning model through an API with the relevant user properties (e.g., registration status, activity level), user actions (e.g., past reviews and comments), and comment content (e.g., text, presence of unauthorized advertising).
+<br>**Data preprocessing**: The machine learning model preprocesses the input data to clean and transform it into a format that can be used for model inference (feature engineering, data normalization, and data cleaning).
+<br>**Model inference and prediction outpu**t: The machine learning model uses the preprocessed data to make a prediction on the legitimacy of the comment. The machine learning model returns the predicted label or score as a JSON response to the CRM system. 
+<br>**Action triggering**: Based on the predicted label or score, the CRM system can take action on the comment, such as flagging it for further review, removing it, or sending an alert to the Customer Support team. The action can be triggered automatically based on predefined logic.
+<br>**Feedback loop**: The CRM system can also provide feedback to the machine learning model on the accuracy and relevance of the predictions. This can be done by sending labeled data or user feedback to the model for retraining or fine-tuning. The feedback loop can help improve the model's performance over time and ensure its relevance to the business needs.
+<br>**Real-time**: My understanding is that real-time deployment could be achieved through microservices architecture with a message broker, such as Apache Kafka or RabbitMQ, deployed on Google Cloud Platform (GCP).
 
 ## **Part B**
  
