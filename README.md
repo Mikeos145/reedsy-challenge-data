@@ -57,32 +57,32 @@ _The data pipeline would be as follows:_
 <li>Orchestration: dbt Cloud, Fivetran
 
 #### **Pipeline description and rationale**
-**Data Collection**
+_**Data Collection**_
 <br>For data collection and integration, depending on the balance of the sources needed vs the sources serviced through a tool, I would opt for an out of the box ETL tool such as Fivetran, a cloud-based data integration tool that provides pre-built connectors. The reason I'd opt for this is that it can save considerable time and money when compared to the salary of a data engineer and can allow for a leaner team and free up time for other value adding work such as driving insights through analysis. This is because Fivetran connectors are automatically maintained and updated, for example in the case of schema changes. It’s a best in class solution you’ll find in many early stage businesses, integrates seamlessly with GCP and can even be used via GCP start-up credits. It’s the solution I use in my current business and I’ve had an excellent experience with it. Fivetran automatically integrates the collected data into your Data Warehouse, in this case I would opt for BigQuery, more on this below. You could go for an entirely custom approach to ETL but I would argue the upkeep and resource allocation make it the lesser choice, unless you have a lot of custom requirements not serviced by pre-built connectors. 
 
-**Practicalities**: Set up involves setting up connectors using service accounts or appropriate credentials and scheduling these according to your needs. 
+_**Practicalities**:_ Set up involves setting up connectors using service accounts or appropriate credentials and scheduling these according to your needs. 
 
-**Data Transformation**
+_**Data Transformation**_
 <br>I would opt for dbt Cloud for data transformation. dbt (Data Build Tool) is an open-source tool that allows analysts to write SQL queries to transform data in a reproducible and maintainable way. dbt Cloud is the cloud-based version of dbt that provides additional features, such as scheduling and orchestration of dbt runs and additional features via the IDE. dbt cloud offers advantages in bringing software development principles and data governance into one place seamlessly, through the likes of version control, documentation and testing. It encourages best practice approaches to SQL through enabling a modular approach, and provides easy to access data lineage. It’s best in class and has been growing in popularity over the last few years. It’s free for one developer seat and very low cost from there on out. For all these reasons dbt Cloud would be what I would employ for data transformation. There is also dbt Core which is entirely command line based and completely free should costs become prohibitive or there be a desire for more control or customisation.
 
-**Practicalities**: Set up involves layering on top of your data warehouse using a service account or appropriate credentials connected via the dbt cloud UI.
+_**Practicalities**:_ Set up involves layering on top of your data warehouse using a service account or appropriate credentials connected via the dbt cloud UI.
 
-**Data Storage**
+_**Data Storage**_
 <br>For storage I would opt for BigQuery. It offers a better pricing structure than Snowflake for earlier stage businesses and provides superior functionality to Redshift, particularly when it comes to maintenance due to its systems architecture. However, I think one of the most compelling reasons to choose BigQuery over the likes of Redshift would be free streaming of events from Google Analytics, reducing ingress and egress costs.
 
-**Practicalities**: Set up is seamless with this being a GCP product with considerations needing to be made regarding governance, in terms of identity and access management (IAM), such as roles and permissions as well as service/data location e.g. eu-west-2. 
+_**Practicalities**_: Set up is seamless with this being a GCP product with considerations needing to be made regarding governance, in terms of identity and access management (IAM), such as roles and permissions as well as service/data location e.g. eu-west-2. 
 
-**Data Exploration/Dashboarding**
+_**Data Exploration/Dashboarding**_
 <br>When considering BI tools, the two options worth considering in my opinion are Looker and Tableau. Looker is superior in terms of enabling self service analytics due to its governance and modeling layers. However, Tableau offers superior flexibility. The biggest divide though is cost, with Looker being orders of magnitude more expensive, especially if opting for features such as white labeled embedded dashboards within your own site, such as for client or investor dashboards. For this reason I would choose Tableau. It can be used for both dashboarding and  data exploration/analysis. The results of the data analysis are presented to end-users through dashboards and customized to provide a user-friendly interface for exploring the data, including filters, parameters, drill downs, views and exports. I would opt for Tableau Cloud in the first instance as it provides a fully managed service, but you can opt for Tableau server if you have specific requirements. 
 
-**Practicalities**: Set up involves connecting with BigQuery via service account or appropriate credentials connected via the Tableau Desktop UI.
+_**Practicalities**_: Set up involves connecting with BigQuery via service account or appropriate credentials connected via the Tableau Desktop UI.
 
-**Communications**
+_**Communications**_
 <br>Comms are an important end point for an analytics pipeline as they allow insights to turn into actions that affect users. Through a platform like Customer.io you are able to send targeted, personalized messages to their customers based on their behavior and interests that are relevant and timely. Customer.io integrates seamlessly with BigQuery with the ability to write SQL against tables in the warehouse to enable various customer journeys. 
 
-**Practicalities**: Set up involves connecting with BigQuery via service account or appropriate credentials connected via the customer.io UI.
+_**Practicalities**_: Set up involves connecting with BigQuery via service account or appropriate credentials connected via the customer.io UI.
 
-**Orchestration**
+_**Orchestration**_
 <br>Orchestration can be handled through a mix of sequential triggered workflows and chronological time based scheduling. 
 <br>Using Fivetran, you can schedule your data sources to sync with your target data warehouse on a regular basis. This will ensure that your data is up-to-date for your dbt jobs. 
 <br>Within dbt Cloud you are able to then create sequential workflows, where a series of dbt jobs are triggered by the completion of the previous job. 
@@ -90,7 +90,7 @@ _The data pipeline would be as follows:_
 <br>There is the option to have a sequential workflow from the point of data integration from source though transformations through use Fivetran transformations (which run on dbt Core), however this would mean not using dbt Cloud and would arguably result in an over dependence on Fivetran, should a switch to another ETL option down the line be required. Given that for most regular reporting needs a near real time, or usually daily option, is more than enough, it is unlikely this is necessary. Other options such as Airflow are also available for orchestration. 
 
 
-**Advantages**
+_**Advantages**_
 <br>**Scalability**: BigQuery is a highly scalable data warehouse that can handle large volumes of data, making it well-suited for this use case.
 <br>**Ease of use**: Fivetran and dbt Cloud and BigQuery are all cloud-based options that are easy to set up and use. They provide a user-friendly interface for data integration, storage and transformation.
 <br>**Data governance**: dbt Cloud provides version control and testing capabilities, which are important for maintaining data governance and ensuring data accuracy. Fivetran handles schema and data changes for you ensuring data is always up to date and clean. 
