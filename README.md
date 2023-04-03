@@ -12,10 +12,10 @@ Since then I’ve applied my skills across a broad range of settings, never rest
 
 **The Marketing Team at Bookly wants to merge and analyze all the data that is being collected by the different products in order to extract useful business insights of various kinds. Examples of such analytics include (but are not restricted to):**
 
-**List all-time top rated books and trending ones;
-Measure user sign-up rate over certain periods (weekly, quarterly, etc);
-Show the total number of real-time (current) page views for any given book description page (product page);
-...**
+<li>**List all-time top rated books and trending ones;**
+<li>**Measure user sign-up rate over certain periods (weekly, quarterly, etc);**
+<li>**Show the total number of real-time (current) page views for any given book description page (product page);**
+<li>**...**
 
 **Design a conceptual data pipeline to drive and aggregate data from all the different sources to ultimately be accessible by a user-friendly data exploration/dashboarding tool of your choice. Feel free to pick any technology available (e.g. open source, cloud providers, etc.).**
 
