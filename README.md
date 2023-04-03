@@ -1,4 +1,5 @@
 **Question 0**
+
 **Write a paragraph about yourself, your hobbies and your major achievements in your career or study so far. Add another one about your professional experience and commercial projects you've been involved with.**
 
 **Answer 0 **
@@ -8,6 +9,7 @@ Hi, I’m Michael - I’m an outgoing, social person with a positive outlook on 
 Since then I’ve applied my skills across a broad range of settings, never resting on my laurels, but always looking to take on new challenges, self-teaching to meet those. In my last role this took the form of working on two academic papers with Imperial College London which are soon to be published as well as developing a publicly accessing respiratory data hub to democratise respiratory data for campaigners and patients alike. In my current role, I came in to a business with no analytics tech stack and a scattered, error prone “system” of manual reporting. Within 10 months, I provided stop gap solution for automated reporting, while scoping, designing and implementing a full, best in class, analytics tech stack, to set the business up for scale. This includes ETL, Data Warehousing, Reverse ETL and BI Tool (Tableau) with a full suite of dashboards to serve 4 distinct areas of the business. These are Engagement and Programmes, Commercial, Product and Leadership.
 
 **Question 1**
+
 **The Marketing Team at Bookly wants to merge and analyze all the data that is being collected by the different products in order to extract useful business insights of various kinds. Examples of such analytics include (but are not restricted to):**
 
 **List all-time top rated books and trending ones;
@@ -98,6 +100,7 @@ Visualization: Tableau provides a wide range of visualization options and is wel
 Overall, this stack provides a robust and scalable solution that ensures a seamless flow of data from source to dashboard.
 
 **Question 2**
+ 
 **The Customer Support team spends considerable time scanning through customer reviews and comments in order to filter out illegitimate ones. Multiple factors can contribute to label comments as authentic or not:**
 
 **Comment is made by a registered user vs. anonymous;
@@ -146,15 +149,17 @@ To automate the filtering process, you could build a machine learning model that
 <li>**Real-time**: My understanding is that real-time deployment could be achieved through microservices architecture with a message broker, such as Apache Kafka or RabbitMQ, deployed on Google Cloud Platform (GCP).
 
 **Part B**
+ 
 **The marketing Team at Bookly introduced A/B Testing on their blog - each blog post displays a registration popup picked up from a collection of pre-configured popups. Popups can differ in certain properties such as title, description and picture.**
 
 **The raw dataset in dataset.tsv offers a table with each combination of blog post and registration popup, their corresponding properties and statistics like the total number of page views and registrations. Bookly's main goal is to convert page views into registrations.**
 
 **Other considerations:
-each A/B experiment has a start date;
-rows with empty popup_version values are not running A/B experiments.**
+<li>**each A/B experiment has a start date;**
+<li>**rows with empty popup_version values are not running A/B experiments.**
 
-**Question 3
+**Question 3**
+ 
 For each A/B experiment, find the most performant popup version (A or B) and show the corresponding conversion rate.**
 
 **Describe in detail all the steps you take to perform the analysis, provide code snippets, relevant data transformations and results.**
@@ -234,11 +239,12 @@ Here is the code to confirm there are no 0 value rows.
 SELECT * FROM `oceanic-hash-382522.reedsy.reedsy_AB` WHERE VIEWS = 0
 ```
  
-**Question 4
-For each start date, compute the total views, registrations and conversion for that date. Present the results in the following formats**:
+**Question 4**
+ 
+**For each start date, compute the total views, registrations and conversion for that date. Present the results in the following formats**:
 
-**a table where we can see the views, registrations and conversion value per start date;
-a chart where we can see the evolution of conversion over time (views and registrations not necessary here).**
+<li>**a table where we can see the views, registrations and conversion value per start date;
+<li>**a chart where we can see the evolution of conversion over time (views and registrations not necessary here).**
 
 **As before, provide code snippets and relevant data transformations.**
 
