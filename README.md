@@ -2,7 +2,7 @@
 
 **Write a paragraph about yourself, your hobbies and your major achievements in your career or study so far. Add another one about your professional experience and commercial projects you've been involved with.**
 
-**Answer 0 **
+**Answer 0**
 
 Hi, I’m Michael - I’m an outgoing, social person with a positive outlook on life. I enjoy physical activities, frequently involving myself in sports, outdoor pursuits and adventure based getaways. I love nature, hold the value of friends and family in high regard, and enjoy challenging myself mentally, always looking to expand my skill and knowledge base. My major achievements in my career and study so far include receiving a 1st Class Hons Degree, gaining a placement at IBM and then going on to start from the bottom on a Data Analyst Internship and working my way up through two promotions to managing the biggest account in the business (Amazon) within 9 months. 
 
