@@ -84,25 +84,25 @@ Describe in detail all the steps you take to perform the analysis, provide code 
 
 Steps taken Initially it’s important to eyeball the data getting a sense of what each column contains and initial thoughts on any cleaning steps. For this a simple SELECT * query will suffice:
 
--- TAKE A LOOK AT THE DATA SELECT * FROM oceanic-hash-382522.reedsy.reedsy_AB LIMIT 1000;
+     - TAKE A LOOK AT THE DATA SELECT * FROM oceanic-hash-382522.reedsy.reedsy_AB LIMIT 1000;
 
-From here it’s clear that data will need to be extracted from an array of terms within the popup_version_start_date_popup_category field. So through the use of SAFE_CAST, REPLACE, SPLIT, OFFSET, terms can be extracted. Checking for any null or empty results. In this case there were some for A/B which was expected but also some for date, which outlines data quality issues for a small portion of total views ~2%. Through the use of order by, null results can be identified.
+From here it’s clear that data will need to be extracted from an array of terms within the popup*version_start_date_popup_category field. So through the use of SAFE*CAST, REPLACE, SPLIT, OFFSET, terms can be extracted. Checking for any null or empty results. In this case there were some for A/B which was expected but also some for date, which outlines data quality issues for a small portion of total views ~2%. Through the use of order by, null results can be identified.
 
--- TAKE A LOOK AT POPUP NAMES TO SEE HOW TO EXTRACT DATA FROM THESE SELECT DISTINCT popup_version_start_date_popup_category, SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")[OFFSET(1)],'"',"") AS DATE) AS date, REPLACE(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")[OFFSET(0)],'"',""),"[","") as AB, REPLACE(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")[OFFSET(2)],'"',""),"]","") as category FROM oceanic-hash-382522.reedsy.reedsy_AB ORDER BY 2 ASC LIMIT 1000;
+     - TAKE A LOOK AT POPUP NAMES TO SEE HOW TO EXTRACT DATA FROM THESE SELECT DISTINCT popup*version_start_date_popup_category, SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")<OFFSET(1)>,'"',"") AS DATE) AS date, REPLACE(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")<OFFSET(0)>,'"',""),"[","") as AB, REPLACE(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")<OFFSET(2)>,'"',""),"]","") as category FROM oceanic-hash-382522.reedsy.reedsy*AB ORDER BY 2 ASC LIMIT 1000;
 
 It wasn’t entirely clear from the brief what the unifying field would be across the A/B tests so a look at the data filtered by blog post url sheds light on what varies across the blog post, revealing the A/B split across blog post and date, as per details in the brief. However the blog post field needs to be cleaned to ensure correct groupings, due to excess backslashes at the end of URLs.
 
--- FURTHER LOOK AT BLOG POST GROUPINGS TO SEE WHAT VARIES BY BLOG POST SELECT * FROM oceanic-hash-382522.reedsy.reedsy_AB ORDER BY REPLACE(blog_post_url,"/","")
+     - FURTHER LOOK AT BLOG POST GROUPINGS TO SEE WHAT VARIES BY BLOG POST SELECT * FROM oceanic-hash-382522.reedsy.reedsy*AB ORDER BY REPLACE(blog_post*url,"/","")
 
-At this point a first iteration of the final table seems appropriate, using a campaign_id of a CONTENATED field of blog post and the extracted date as the unique identifier for the A/B tests. A common table expression (CTE) serves as a suitable option to create a staging table to keep the code from becoming too bulky or repetitive with the lengthy functions needed to extract items from the popup_version. It was clear from the data interrogation that there were multiple rows that needed to be aggregated per campaign id. These were generally due to multiple languages of the same text creating distinct rows. This is something I would discuss with relevant stakeholders as this may be something to deliberately keep distinct if there’s a rationale that different regions should be segmented due to confounding factors but in this instance I opted to aggregate the views and registrations and create a conversation rate based on registrations/views. This allowed for the creation of a most_performant flag using a window function based on the conversion rates (CVR), as well as a data sanity flag to check if there were both an A and a B present for a given campaign, also using a window function. There were instances where there was only either A or B. Further investigation on this by ordering on this field revealed that in these instances, the solo A or B line item had low views and therefore it is assumed that its counterpart is simply missing due to no views - making the present line item the most performant. To validate this, a check to ensure that there are no 0 view line items reveals that this is indeed the case. As there are no placeholder or 0 value rows the assumption seems reasonable. However this is something that could easily be checked with other stakeholders or through a better understanding of the data source.
+At this point a first iteration of the final table seems appropriate, using a campaign*id of a CONTENATED field of blog post and the extracted date as the unique identifier for the A/B tests. A common table expression (CTE) serves as a suitable option to create a staging table to keep the code from becoming too bulky or repetitive with the lengthy functions needed to extract items from the popup_version. It was clear from the data interrogation that there were multiple rows that needed to be aggregated per campaign id. These were generally due to multiple languages of the same text creating distinct rows. This is something I would discuss with relevant stakeholders as this may be something to deliberately keep distinct if there’s a rationale that different regions should be segmented due to confounding factors but in this instance I opted to aggregate the views and registrations and create a conversation rate based on registrations/views. This allowed for the creation of a most*performant flag using a window function based on the conversion rates (CVR), as well as a data sanity flag to check if there were both an A and a B present for a given campaign, also using a window function. There were instances where there was only either A or B. Further investigation on this by ordering on this field revealed that in these instances, the solo A or B line item had low views and therefore it is assumed that its counterpart is simply missing due to no views - making the present line item the most performant. To validate this, a check to ensure that there are no 0 view line items reveals that this is indeed the case. As there are no placeholder or 0 value rows the assumption seems reasonable. However this is something that could easily be checked with other stakeholders or through a better understanding of the data source.
 
--- PRODUCE FINAL TABLE AFTER SOME INTERATIONS WITH FLAGS FOR MOST PERFORMANT WITH cte_a_b_popup_staging AS ( SELECT REPLACE(blog_post_url,"/","") AS blog_url_fixed, SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")[OFFSET(1)],'"',"") AS DATE) AS start_date, CONCAT(REPLACE(blog_post_url,"/",""),REPLACE(SPLIT(popup_version_start_date_popup_category, ",")[OFFSET(1)],'"',"")) AS campaign_id, REPLACE(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")[OFFSET(0)],'"',""),"[","") as AB, REPLACE(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")[OFFSET(2)],'"',""),"]","") as category, popup_name, SUM(registrations) AS sum_registrations, SUM(views) AS sum_views, ROUND(SUM(registrations)/SUM(views),2) AS CVR FROM oceanic-hash-382522.reedsy.reedsy_AB GROUP BY 1,2,3,4,5,6 ORDER BY 1,2,3,4,5,6 )
+     - PRODUCE FINAL TABLE AFTER SOME INTERATIONS WITH FLAGS FOR MOST PERFORMANT WITH cte*a_b_popup_staging AS ( SELECT REPLACE(blog_post_url,"/","") AS blog_url_fixed, SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")<OFFSET(1)>,'"',"") AS DATE) AS start_date, CONCAT(REPLACE(blog_post_url,"/",""),REPLACE(SPLIT(popup_version_start_date_popup_category, ",")<OFFSET(1)>,'"',"")) AS campaign_id, REPLACE(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")<OFFSET(0)>,'"',""),"[","") as AB, REPLACE(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")<OFFSET(2)>,'"',""),"]","") as category, popup_name, SUM(registrations) AS sum_registrations, SUM(views) AS sum_views, ROUND(SUM(registrations)/SUM(views),2) AS CVR FROM oceanic-hash-382522.reedsy.reedsy*AB GROUP BY 1,2,3,4,5,6 ORDER BY 1,2,3,4,5,6 )
 
-SELECT campaign_id, blog_url_fixed, start_date, AB, category, popup_name, sum_registrations, sum_views, CVR, COUNT(*) OVER (PARTITION BY campaign_id) AS A_B_present_flag, ROW_NUMBER() OVER (PARTITION BY campaign_id ORDER BY CVR DESC) AS most_performant_flag FROM cte_a_b_popup_staging WHERE LENGTH(AB) > 0 ORDER BY start_date DESC, campaign_id, CVR DESC
+SELECT campaign*id, blog_url_fixed, start_date, AB, category, popup_name, sum_registrations, sum_views, CVR, COUNT(*) OVER (PARTITION BY campaign_id) AS A_B_present_flag, ROW_NUMBER() OVER (PARTITION BY campaign_id ORDER BY CVR DESC) AS most_performant_flag FROM cte_a_b_popup_staging WHERE LENGTH(AB) > 0 ORDER BY start_date DESC, campaign*id, CVR DESC
 
 Here is the code to confirm there are no 0 value rows.
 
--- DOUBLE CHECK IF THERE ARE ROWS OF DATA WITH 0 VIEWS SELECT * FROM oceanic-hash-382522.reedsy.reedsy_AB WHERE VIEWS = 0
+     - DOUBLE CHECK IF THERE ARE ROWS OF DATA WITH 0 VIEWS SELECT * FROM oceanic-hash-382522.reedsy.reedsy_AB WHERE VIEWS = 0
 
 Question 4 For each start date, compute the total views, registrations and conversion for that date. Present the results in the following formats:
 
@@ -112,31 +112,31 @@ As before, provide code snippets and relevant data transformations.
 
 Steps taken For this a simple adaptation of the final table above can be made to achieve a date level aggregation.
 
--- START DATE OVER TIME WITH cte_a_b_popup_staging AS ( SELECT SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")[OFFSET(1)],'"',"") AS DATE) AS start_date, SUM(registrations) AS total_registrations, SUM(views) AS total_views, ROUND(SUM(registrations)/SUM(views),2) AS total_CVR FROM oceanic-hash-382522.reedsy.reedsy_AB GROUP BY 1 ORDER BY 1 DESC )
+     - START DATE OVER TIME WITH cte*a_b_popup_staging AS ( SELECT SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")<OFFSET(1)>,'"',"") AS DATE) AS start_date, SUM(registrations) AS total_registrations, SUM(views) AS total_views, ROUND(SUM(registrations)/SUM(views),2) AS total_CVR FROM oceanic-hash-382522.reedsy.reedsy*AB GROUP BY 1 ORDER BY 1 DESC )
 
  SELECT
  start_date,
  total_registrations,
  total_views,
  total_CVR,
- FROM `cte_a_b_popup_staging`
+ FROM `cte*a_b_popup*staging`
  ORDER BY start_date DESC
 I also explored adding a date scaffold to fill in blank dates out of interest on the assumption that if popups were constantly running and missing days were due to no hits, using a date scaffold could provide a clearer picture of regularity.
 
--- START DATE OVER TIME WITH DATE SCAFFOLD WITH cte_a_b_popup_staging AS ( SELECT SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")[OFFSET(1)],'"',"") AS DATE) AS start_date, SUM(registrations) AS total_registrations, SUM(views) AS total_views, ROUND(SUM(registrations)/SUM(views),2) AS total_CVR FROM oceanic-hash-382522.reedsy.reedsy_AB GROUP BY 1 ORDER BY 1 DESC ),
+     - START DATE OVER TIME WITH DATE SCAFFOLD WITH cte*a_b_popup_staging AS ( SELECT SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")<OFFSET(1)>,'"',"") AS DATE) AS start_date, SUM(registrations) AS total_registrations, SUM(views) AS total_views, ROUND(SUM(registrations)/SUM(views),2) AS total_CVR FROM oceanic-hash-382522.reedsy.reedsy*AB GROUP BY 1 ORDER BY 1 DESC ),
 
-cte_date_scaffold AS ( SELECT date_date_scaffold FROM UNNEST(GENERATE_DATE_ARRAY( (SELECT MIN(SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")[OFFSET(1)],'"',"") AS DATE)) FROM oceanic-hash-382522.reedsy.reedsy_AB) , (SELECT MAX(SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")[OFFSET(1)],'"',"") AS DATE)) FROM oceanic-hash-382522.reedsy.reedsy_AB) , INTERVAL 1 DAY)) as date_date_scaffold)
+cte*date_scaffold AS ( SELECT date_date_scaffold FROM UNNEST(GENERATE_DATE_ARRAY( (SELECT MIN(SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")<OFFSET(1)>,'"',"") AS DATE)) FROM oceanic-hash-382522.reedsy.reedsy_AB) , (SELECT MAX(SAFE_CAST(REPLACE(SPLIT(popup_version_start_date_popup_category, ",")<OFFSET(1)>,'"',"") AS DATE)) FROM oceanic-hash-382522.reedsy.reedsy_AB) , INTERVAL 1 DAY)) as date_date*scaffold)
 
  SELECT
- date_date_scaffold,
+ date*date*scaffold,
  start_date,
  total_registrations,
  total_views,
  total_CVR,
- FROM `cte_a_b_popup_staging`
- FULL JOIN `cte_date_scaffold`
-   ON start_date = date_date_scaffold
- ORDER BY date_date_scaffold DESC
+ FROM `cte*a_b_popup*staging`
+ FULL JOIN `cte*date*scaffold`
+   ON start*date = date_date*scaffold
+ ORDER BY date*date*scaffold DESC
 Once the tables were made I pulled these into google sheets to interrogate further. Ultimately I produced a simple line chart to meet the request. From this it can be seen that CVR has remained relatively flat across the period on average, although with significant variance and with the max CVR on one of the later dates. Popups are gaining traffic more often in later dates, possibly a feature of running more often, or if not then it is interesting as to why they are getting a higher frequency of engagement, but with lower CVR. This may be expected due to user fatigue. Before going further with this analysis I would ask the following questions:
 
 Have these popups ran constantly, if not what has the approach been? What is the ultimate ambition, efficiency or overall registrations? Are we looking for high CVR with as low impact as possible to not fatigue end users but still drive registrations, or are we willing to go with a high frequency approach which delivers more overall registrations at a lower CVR - which is the current state of affairs - but may cause user fatigue.
