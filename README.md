@@ -27,7 +27,7 @@ Describe the different components of the architecture, tools involved and compar
 This is a data pipeline that covers data collection and integration, data transformation, data storage, data exploration/dashboarding, communications, and orchestration. The principles it follows are scalability, ease of use, maintenance, governance, and collaboration. The recommended stack is a GCP first stack, and while combining services from other providers is possible, there are advantages in sticking to one service provider where possible. The data pipeline starts with various data sources, and an ETL tool like Fivetran is recommended for data collection and integration. For data transformation, dbt Cloud is used, and for storage, BigQuery is recommended. Tableau is used for data exploration/dashboarding, and for communications, Customer.io is used. dbt Cloud and Fivetran are used for orchestration. 
 
 ### **Detail**
-The below data pipeline will cover the following areas:
+_The below data pipeline will cover the following areas:_
 
 <li>Data Collection & Integration
 <li>Data Transformation
@@ -36,7 +36,7 @@ The below data pipeline will cover the following areas:
 <li>Communications
 <li>Orchestration 
 
-It has been suggested based on the following principles:
+_It has been suggested based on the following principles:_
 
 <li>Scalability
 <li>Ease of use
@@ -46,7 +46,7 @@ It has been suggested based on the following principles:
 
 I have chosen a GCP analytics tech stack and while combining services across the likes of GCP and AWS is fairly straightforward, there are advantages both in terms of cost and integration by sticking with one. However, in some instances the use of services across cloud service providers is sensible. An instance like this may be the use of AWS personalise, a machine learning service offered by Amazon Web Services (AWS) that enables businesses to create personalized recommendations for their customers 
 
-The data pipeline would be as follows:
+_The data pipeline would be as follows:_
 
 <li>Data Sources (various e.g. Social Media, Google Analytics, Production Database)
 <li>ETL (Data Integration): Fivetran
