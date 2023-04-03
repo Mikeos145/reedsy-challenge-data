@@ -1,6 +1,6 @@
 ## **Question 0**
 
-**Write a paragraph about yourself, your hobbies and your major achievements in your career or study so far. Add another one about your professional experience and commercial projects you've been involved with.**
+Write a paragraph about yourself, your hobbies and your major achievements in your career or study so far. Add another one about your professional experience and commercial projects you've been involved with.
 
 ## **Answer 0**
 
@@ -10,16 +10,16 @@ Since then I’ve applied my skills across a broad range of settings, never rest
 
 ## **Question 1**
 
-**The Marketing Team at Bookly wants to merge and analyze all the data that is being collected by the different products in order to extract useful business insights of various kinds. Examples of such analytics include (but are not restricted to):**
+The Marketing Team at Bookly wants to merge and analyze all the data that is being collected by the different products in order to extract useful business insights of various kinds. Examples of such analytics include (but are not restricted to):
 
-<li>**List all-time top rated books and trending ones;**
-<li>**Measure user sign-up rate over certain periods (weekly, quarterly, etc);**
-<li>**Show the total number of real-time (current) page views for any given book description page (product page);**
-<li>**...**
+<li>List all-time top rated books and trending ones;
+<li>Measure user sign-up rate over certain periods (weekly, quarterly, etc);
+<li>Show the total number of real-time (current) page views for any given book description page (product page);
+<li>...
 
-**Design a conceptual data pipeline to drive and aggregate data from all the different sources to ultimately be accessible by a user-friendly data exploration/dashboarding tool of your choice. Feel free to pick any technology available (e.g. open source, cloud providers, etc.).**
+Design a conceptual data pipeline to drive and aggregate data from all the different sources to ultimately be accessible by a user-friendly data exploration/dashboarding tool of your choice. Feel free to pick any technology available (e.g. open source, cloud providers, etc.).
 
-**Describe the different components of the architecture, tools involved and compare possible approaches.**
+Describe the different components of the architecture, tools involved and compare possible approaches.
 
 ## **Answer 1**
 
@@ -101,15 +101,16 @@ Overall, this stack provides a robust and scalable solution that ensures a seaml
 
 ## **Question 2**
  
-**The Customer Support team spends considerable time scanning through customer reviews and comments in order to filter out illegitimate ones. Multiple factors can contribute to label comments as authentic or not:**
+The Customer Support team spends considerable time scanning through customer reviews and comments in order to filter out illegitimate ones. Multiple factors can contribute to label comments as authentic or not
 
-**Comment is made by a registered user vs. anonymous;
-Level of user activity (eg: number of past reviews and comments);
-Content of the comment (eg: unauthorized advertising)
-...
-In order to automate the filtering process, design a conceptual, real-time, decision support system that takes data as input (user properties, user actions, content, etc) and automatically labels comments as legitimate/illegitimate for the Customer Support Team to quickly flag and remove the unwanted.**
+<li>Comment is made by a registered user vs. anonymous;
+<li>Level of user activity (eg: number of past reviews and comments);
+<li>Content of the comment (eg: unauthorized advertising)
+<li>...
+ 
+In order to automate the filtering process, design a conceptual, real-time, decision support system that takes data as input (user properties, user actions, content, etc) and automatically labels comments as legitimate/illegitimate for the Customer Support Team to quickly flag and remove the unwanted.
 
-**Describe possible approaches and architecture, focusing more on algorithms, libraries and tools that could be used.**
+Describe possible approaches and architecture, focusing more on algorithms, libraries and tools that could be used.
 
 ## **Answer 2**
 
@@ -150,19 +151,19 @@ To automate the filtering process, you could build a machine learning model that
 
 ## **Part B**
  
-**The marketing Team at Bookly introduced A/B Testing on their blog - each blog post displays a registration popup picked up from a collection of pre-configured popups. Popups can differ in certain properties such as title, description and picture.**
+The marketing Team at Bookly introduced A/B Testing on their blog - each blog post displays a registration popup picked up from a collection of pre-configured popups. Popups can differ in certain properties such as title, description and picture.
 
-**The raw dataset in dataset.tsv offers a table with each combination of blog post and registration popup, their corresponding properties and statistics like the total number of page views and registrations. Bookly's main goal is to convert page views into registrations.**
+The raw dataset in dataset.tsv offers a table with each combination of blog post and registration popup, their corresponding properties and statistics like the total number of page views and registrations. Bookly's main goal is to convert page views into registrations.
 
-**Other considerations:
-<li>**each A/B experiment has a start date;**
-<li>**rows with empty popup_version values are not running A/B experiments.**
+Other considerations:
+<li>each A/B experiment has a start date;
+<li>rows with empty popup_version values are not running A/B experiments.
 
 ## **Question 3**
  
-For each A/B experiment, find the most performant popup version (A or B) and show the corresponding conversion rate.**
+For each A/B experiment, find the most performant popup version (A or B) and show the corresponding conversion rate.
 
-**Describe in detail all the steps you take to perform the analysis, provide code snippets, relevant data transformations and results.**
+Describe in detail all the steps you take to perform the analysis, provide code snippets, relevant data transformations and results.
 
 ## **Answer 3**
 
