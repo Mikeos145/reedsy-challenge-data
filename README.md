@@ -321,4 +321,4 @@ Once the tables were made I pulled these into google sheets to interrogate furth
 <li>What is the ultimate ambition, efficiency or overall registrations? Are we looking for high CVR with as low impact as possible to not fatigue end users but still drive registrations, or are we willing to go with a high frequency approach which delivers more overall registrations at a lower CVR - which is the current state of affairs - but may cause user fatigue.
 
 _**Considerations:**_
-<li>There is also a risk in comparing episodes of high frequency with episodes of low frequency as frequency has a bearing on the validity of the data.
+There is also a risk in comparing episodes of high frequency with episodes of low frequency as frequency has a bearing on the validity of the data.
