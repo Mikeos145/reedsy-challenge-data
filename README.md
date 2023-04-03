@@ -2,13 +2,13 @@
 
 **Write a paragraph about yourself, your hobbies and your major achievements in your career or study so far. Add another one about your professional experience and commercial projects you've been involved with.**
 
-**Answer 0**
+## **Answer 0**
 
 Hi, I’m Michael - I’m an outgoing, social person with a positive outlook on life. I enjoy physical activities, frequently involving myself in sports, outdoor pursuits and adventure based getaways. I love nature, hold the value of friends and family in high regard, and enjoy challenging myself mentally, always looking to expand my skill and knowledge base. My major achievements in my career and study so far include receiving a 1st Class Hons Degree, gaining a placement at IBM and then going on to start from the bottom on a Data Analyst Internship and working my way up through two promotions to managing the biggest account in the business (Amazon) within 9 months. 
 
 Since then I’ve applied my skills across a broad range of settings, never resting on my laurels, but always looking to take on new challenges, self-teaching to meet those. In my last role this took the form of working on two academic papers with Imperial College London which are soon to be published as well as developing a publicly accessing respiratory data hub to democratise respiratory data for campaigners and patients alike. In my current role, I came in to a business with no analytics tech stack and a scattered, error prone “system” of manual reporting. Within 10 months, I provided stop gap solution for automated reporting, while scoping, designing and implementing a full, best in class, analytics tech stack, to set the business up for scale. This includes ETL, Data Warehousing, Reverse ETL and BI Tool (Tableau) with a full suite of dashboards to serve 4 distinct areas of the business. These are Engagement and Programmes, Commercial, Product and Leadership.
 
-**Question 1**
+## **Question 1**
 
 **The Marketing Team at Bookly wants to merge and analyze all the data that is being collected by the different products in order to extract useful business insights of various kinds. Examples of such analytics include (but are not restricted to):**
 
@@ -21,15 +21,15 @@ Show the total number of real-time (current) page views for any given book descr
 
 **Describe the different components of the architecture, tools involved and compare possible approaches.**
 
-**Answer 1**
+## **Answer 1**
 
-**TL;DR**
+### **TL;DR**
 This is a data pipeline that covers data collection and integration, data transformation, data storage, data exploration/dashboarding, communications, and orchestration. The principles it follows are scalability, ease of use, maintenance, governance, and collaboration. The recommended stack is a GCP first stack, and while combining services from other providers is possible, there are advantages in sticking to one service provider where possible. The data pipeline starts with various data sources, and an ETL tool like Fivetran is recommended for data collection and integration. For data transformation, dbt Cloud is used, and for storage, BigQuery is recommended. Tableau is used for data exploration/dashboarding, and for communications, Customer.io is used. dbt Cloud and Fivetran are used for orchestration. 
 
-**Detail**
+### **Detail**
 The below data pipeline will cover the following areas:
 
-**Data Collection & Integration**
+<li>Data Collection & Integration
 <li>Data Transformation
 <li>Data Storage
 <li>Data Exploration/Dashboarding
@@ -56,7 +56,7 @@ The data pipeline would be as follows:
 <li>Communications: Customer.io
 <li>Orchestration: dbt Cloud, Fivetran
 
-**Pipeline description and rationale**
+#### **Pipeline description and rationale**
 **Data Collection**
 For data collection and integration, depending on the balance of the sources needed vs the sources serviced through a tool, I would opt for an out of the box ETL tool such as Fivetran, a cloud-based data integration tool that provides pre-built connectors. The reason I'd opt for this is that it can save considerable time and money when compared to the salary of a data engineer and can allow for a leaner team and free up time for other value adding work such as driving insights through analysis. This is because Fivetran connectors are automatically maintained and updated, for example in the case of schema changes. It’s a best in class solution you’ll find in many early stage businesses, integrates seamlessly with GCP and can even be used via GCP start-up credits. It’s the solution I use in my current business and I’ve had an excellent experience with it. Fivetran automatically integrates the collected data into your Data Warehouse, in this case I would opt for BigQuery, more on this below. You could go for an entirely custom approach to ETL but I would argue the upkeep and resource allocation make it the lesser choice, unless you have a lot of custom requirements not serviced by pre-built connectors. 
 
@@ -90,7 +90,7 @@ You are able to build a dashboard in Tableau or use dbt Cloud tests to monitor y
 There is the option to have a sequential workflow from the point of data integration from source though transformations through use Fivetran transformations (which run on dbt Core), however this would mean not using dbt Cloud and would arguably result in an over dependence on Fivetran, should a switch to another ETL option down the line be required. Given that for most regular reporting needs a near real time, or usually daily option, is more than enough, it is unlikely this is necessary. Other options such as Airflow are also available for orchestration. 
 
 
-**Advantages**
+#### **Advantages**
 Scalability: BigQuery is a highly scalable data warehouse that can handle large volumes of data, making it well-suited for this use case.
 Ease of use: Fivetran and dbt Cloud and BigQuery are all cloud-based options that are easy to set up and use. They provide a user-friendly interface for data integration, storage and transformation.
 Data governance: dbt Cloud provides version control and testing capabilities, which are important for maintaining data governance and ensuring data accuracy. Fivetran handles schema and data changes for you ensuring data is always up to date and clean. 
@@ -99,7 +99,7 @@ Visualization: Tableau provides a wide range of visualization options and is wel
 
 Overall, this stack provides a robust and scalable solution that ensures a seamless flow of data from source to dashboard.
 
-**Question 2**
+## **Question 2**
  
 **The Customer Support team spends considerable time scanning through customer reviews and comments in order to filter out illegitimate ones. Multiple factors can contribute to label comments as authentic or not:**
 
@@ -111,17 +111,17 @@ In order to automate the filtering process, design a conceptual, real-time, deci
 
 **Describe possible approaches and architecture, focusing more on algorithms, libraries and tools that could be used.**
 
-**Answer 2**
+## **Answer 2**
 
-**TLDR:**
+### **TLDR:**
 To automate comment filtering, build a machine learning model that classifies comments as legitimate/illegitimate based on user properties, actions, and content. Collect and preprocess data, engineer features, and choose a binary classification or regression model. Train, test, and deploy the model as a real-time decision support system, integrating it with the existing Customer Support system. Use Python, Scikit-learn, Pandas, NLTK, and Flask, and consider logistic regression or decision tree algorithms. In real-time deployment, the CRM system sends data to the model through an API, which preprocesses the data and returns a prediction label or score. The CRM system takes action based on the prediction and provides feedback to the model for retraining or fine-tuning. Microservices architecture with a message broker can achieve real-time deployment on GCP.
 
-**Detail:**
+### **Detail:**
 To be transparent, to implement the below solution is outside my scope of expertise but I would confidently work with other technical stakeholders to design, develop and deploy such a system. 
 
 To automate the filtering process, you could build a machine learning model that classifies comments as legitimate/illegitimate based on the available data. The approach would be as such:
 
-**Model Development:**
+#### **Model Development:**
 <li>**Data collection**: Gather data on user properties (e.g., registration status, activity level), user actions (e.g., past reviews and comments), and comment content (e.g., text, presence of unauthorized advertising).
 <li>**Data preprocessing**: Clean and preprocess the data to remove any irrelevant or redundant features, handle missing values, and normalize the data.
 <li>**Feature engineering**: Create new features based on the available data, such as user status, reputation score, presence of specific keywords or sentiment analysis. 
@@ -129,18 +129,18 @@ To automate the filtering process, you could build a machine learning model that
 <li>**Training and testing**: Split the data into training and testing sets, train the model on the training set, and evaluate its performance on the testing set. Use cross-validation to ensure the model's robustness. The training set would be a historical set where data was classified by humans. 
 <li>**Deployment/Integration**: Once the model is trained, deploy it as a real-time decision support system that takes user properties, user actions, and comment content as input and outputs a label of legitimate or illegitimate. Integrate the decision support system with the existing Customer Support system to provide automated labeling of comments.
 
-**Tools and libraries**:
+#### **Tools and libraries**:
 <li>**Language**: Python is a good choice for this task as it has many libraries for machine learning and data preprocessing.
 <li>**Scikit-learn**: A popular machine learning library in Python that provides various classification models and tools for data preprocessing and feature engineering.
 <li>**Pandas**: A data manipulation library in Python that can handle data preprocessing tasks such as cleaning and normalization.
 <li>**NLTK (Natural Language Toolkit)**: A library in Python for natural language processing, which can be used to preprocess the comment text data. This could also be achieved via a basic logic of certain words being flagged.
 
-**Algorithms**:
+#### **Algorithms**:
 <li>Logistic regression: A simple and interpretable binary classification model that works well with high-dimensional data.
 <li>Decision tree: A tree-based model that can handle non-linear relationships between the features and the target variable.
 
 
-**Real-time Deployment:**
+#### **Real-time Deployment:**
 <li>**Data input**: The CRM system sends comment data to the machine learning model through an API with the relevant user properties (e.g., registration status, activity level), user actions (e.g., past reviews and comments), and comment content (e.g., text, presence of unauthorized advertising).
 <li>**Data preprocessing**: The machine learning model preprocesses the input data to clean and transform it into a format that can be used for model inference (feature engineering, data normalization, and data cleaning).
 <li>**Model inference and prediction outpu**t: The machine learning model uses the preprocessed data to make a prediction on the legitimacy of the comment. The machine learning model returns the predicted label or score as a JSON response to the CRM system. 
@@ -148,7 +148,7 @@ To automate the filtering process, you could build a machine learning model that
 <li>**Feedback loop**: The CRM system can also provide feedback to the machine learning model on the accuracy and relevance of the predictions. This can be done by sending labeled data or user feedback to the model for retraining or fine-tuning. The feedback loop can help improve the model's performance over time and ensure its relevance to the business needs.
 <li>**Real-time**: My understanding is that real-time deployment could be achieved through microservices architecture with a message broker, such as Apache Kafka or RabbitMQ, deployed on Google Cloud Platform (GCP).
 
-**Part B**
+## **Part B**
  
 **The marketing Team at Bookly introduced A/B Testing on their blog - each blog post displays a registration popup picked up from a collection of pre-configured popups. Popups can differ in certain properties such as title, description and picture.**
 
@@ -158,15 +158,15 @@ To automate the filtering process, you could build a machine learning model that
 <li>**each A/B experiment has a start date;**
 <li>**rows with empty popup_version values are not running A/B experiments.**
 
-**Question 3**
+## **Question 3**
  
 For each A/B experiment, find the most performant popup version (A or B) and show the corresponding conversion rate.**
 
 **Describe in detail all the steps you take to perform the analysis, provide code snippets, relevant data transformations and results.**
 
-**Answer 3**
+## **Answer 3**
 
-**Steps taken**
+### **Steps taken**
 Initially it’s important to eyeball the data getting a sense of what each column contains and initial thoughts on any cleaning steps. For this a simple SELECT * query will suffice:
 
 ```
@@ -239,7 +239,7 @@ Here is the code to confirm there are no 0 value rows.
 SELECT * FROM `oceanic-hash-382522.reedsy.reedsy_AB` WHERE VIEWS = 0
 ```
  
-**Question 4**
+## **Question 4**
  
 **For each start date, compute the total views, registrations and conversion for that date. Present the results in the following formats**:
 
@@ -248,7 +248,9 @@ SELECT * FROM `oceanic-hash-382522.reedsy.reedsy_AB` WHERE VIEWS = 0
 
 **As before, provide code snippets and relevant data transformations.**
 
-**Steps taken**
+## **Answer 4** 
+ 
+### **Steps taken**
 For this a simple adaptation of the final table above can be made to achieve a date level aggregation. 
 
 ```
