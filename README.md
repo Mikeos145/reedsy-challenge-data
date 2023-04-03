@@ -9,16 +9,16 @@ Hi, I’m Michael - I’m an outgoing, social person with a positive outlook on 
 Since then I’ve applied my skills across a broad range of settings, never resting on my laurels, but always looking to take on new challenges, self-teaching to meet those. In my last role this took the form of working on two academic papers with Imperial College London which are soon to be published as well as developing a publicly accessing respiratory data hub to democratise respiratory data for campaigners and patients alike. In my current role, I came in to a business with no analytics tech stack and a scattered, error prone “system” of manual reporting. Within 10 months, I provided stop gap solution for automated reporting, while scoping, designing and implementing a full, best in class, analytics tech stack, to set the business up for scale. This includes ETL, Data Warehousing, Reverse ETL and BI Tool (Tableau) with a full suite of dashboards to serve 4 distinct areas of the business. These are Engagement and Programmes, Commercial, Product and Leadership.
 
 **Question 1
-The Marketing Team at Bookly wants to merge and analyze all the data that is being collected by the different products in order to extract useful business insights of various kinds. Examples of such analytics include (but are not restricted to):
+The Marketing Team at Bookly wants to merge and analyze all the data that is being collected by the different products in order to extract useful business insights of various kinds. Examples of such analytics include (but are not restricted to):**
 
-List all-time top rated books and trending ones;
-Measure user sign-up rate over certain periods (weekly, quarterly, etc);
+**List all-time top rated books and trending ones;**
+**Measure user sign-up rate over certain periods (weekly, quarterly, etc);
 Show the total number of real-time (current) page views for any given book description page (product page);
-...
+...**
 
-Design a conceptual data pipeline to drive and aggregate data from all the different sources to ultimately be accessible by a user-friendly data exploration/dashboarding tool of your choice. Feel free to pick any technology available (e.g. open source, cloud providers, etc.).
+**Design a conceptual data pipeline to drive and aggregate data from all the different sources to ultimately be accessible by a user-friendly data exploration/dashboarding tool of your choice. Feel free to pick any technology available (e.g. open source, cloud providers, etc.).**
 
-Describe the different components of the architecture, tools involved and compare possible approaches.**
+**Describe the different components of the architecture, tools involved and compare possible approaches.****
 
 **TL;DR**
 This is a data pipeline that covers data collection and integration, data transformation, data storage, data exploration/dashboarding, communications, and orchestration. The principles it follows are scalability, ease of use, maintenance, governance, and collaboration. The recommended stack is a GCP first stack, and while combining services from other providers is possible, there are advantages in sticking to one service provider where possible. The data pipeline starts with various data sources, and an ETL tool like Fivetran is recommended for data collection and integration. For data transformation, dbt Cloud is used, and for storage, BigQuery is recommended. Tableau is used for data exploration/dashboarding, and for communications, Customer.io is used. dbt Cloud and Fivetran are used for orchestration. 
@@ -53,7 +53,7 @@ The data pipeline would be as follows:
 <li>Communications: Customer.io
 <li>Orchestration: dbt Cloud, Fivetran
 
-<u>**Pipeline description and rationale
+<u>**Pipeline description and rationale**<u>
 Data Collection**
 For data collection and integration, depending on the balance of the sources needed vs the sources serviced through a tool, I would opt for an out of the box ETL tool such as Fivetran, a cloud-based data integration tool that provides pre-built connectors. The reason I'd opt for this is that it can save considerable time and money when compared to the salary of a data engineer and can allow for a leaner team and free up time for other value adding work such as driving insights through analysis. This is because Fivetran connectors are automatically maintained and updated, for example in the case of schema changes. It’s a best in class solution you’ll find in many early stage businesses, integrates seamlessly with GCP and can even be used via GCP start-up credits. It’s the solution I use in my current business and I’ve had an excellent experience with it. Fivetran automatically integrates the collected data into your Data Warehouse, in this case I would opt for BigQuery, more on this below. You could go for an entirely custom approach to ETL but I would argue the upkeep and resource allocation make it the lesser choice, unless you have a lot of custom requirements not serviced by pre-built connectors. 
 
