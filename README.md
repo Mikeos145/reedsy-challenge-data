@@ -90,8 +90,8 @@ You are able to build a dashboard in Tableau or use dbt Cloud tests to monitor y
 There is the option to have a sequential workflow from the point of data integration from source though transformations through use Fivetran transformations (which run on dbt Core), however this would mean not using dbt Cloud and would arguably result in an over dependence on Fivetran, should a switch to another ETL option down the line be required. Given that for most regular reporting needs a near real time, or usually daily option, is more than enough, it is unlikely this is necessary. Other options such as Airflow are also available for orchestration. 
 
 
-#### **Advantages**
-Scalability: BigQuery is a highly scalable data warehouse that can handle large volumes of data, making it well-suited for this use case.
+**Advantages**
+<br>Scalability: BigQuery is a highly scalable data warehouse that can handle large volumes of data, making it well-suited for this use case.
 Ease of use: Fivetran and dbt Cloud and BigQuery are all cloud-based options that are easy to set up and use. They provide a user-friendly interface for data integration, storage and transformation.
 Data governance: dbt Cloud provides version control and testing capabilities, which are important for maintaining data governance and ensuring data accuracy. Fivetran handles schema and data changes for you ensuring data is always up to date and clean. 
 Integration: All tools chosen integrate seamlessly with one another with easy steps for upkeep monitoring and maintenance. 
