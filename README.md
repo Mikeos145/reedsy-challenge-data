@@ -242,12 +242,12 @@ SELECT * FROM `oceanic-hash-382522.reedsy.reedsy_AB` WHERE VIEWS = 0
  
 ## **Question 4**
  
-**For each start date, compute the total views, registrations and conversion for that date. Present the results in the following formats**:
+For each start date, compute the total views, registrations and conversion for that date. Present the results in the following formats:
 
-<li>**a table where we can see the views, registrations and conversion value per start date;
-<li>**a chart where we can see the evolution of conversion over time (views and registrations not necessary here).**
+<li>a table where we can see the views, registrations and conversion value per start date;
+<li>a chart where we can see the evolution of conversion over time (views and registrations not necessary here).
 
-**As before, provide code snippets and relevant data transformations.**
+As before, provide code snippets and relevant data transformations.
 
 ## **Answer 4** 
  
