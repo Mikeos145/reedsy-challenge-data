@@ -84,18 +84,18 @@ The data pipeline would be as follows:
 
 **Orchestration**
 <br>Orchestration can be handled through a mix of sequential triggered workflows and chronological time based scheduling. 
-Using Fivetran, you can schedule your data sources to sync with your target data warehouse on a regular basis. This will ensure that your data is up-to-date for your dbt jobs. 
-Within dbt Cloud you are able to then create sequential workflows, where a series of dbt jobs are triggered by the completion of the previous job. 
-You are able to build a dashboard in Tableau or use dbt Cloud tests to monitor your workflows to ensure that they are running smoothly. If there are any errors, use the logging and error reporting features in Fivetran and dbt Cloud to troubleshoot the issue. 
-There is the option to have a sequential workflow from the point of data integration from source though transformations through use Fivetran transformations (which run on dbt Core), however this would mean not using dbt Cloud and would arguably result in an over dependence on Fivetran, should a switch to another ETL option down the line be required. Given that for most regular reporting needs a near real time, or usually daily option, is more than enough, it is unlikely this is necessary. Other options such as Airflow are also available for orchestration. 
+<br>Using Fivetran, you can schedule your data sources to sync with your target data warehouse on a regular basis. This will ensure that your data is up-to-date for your dbt jobs. 
+<br>Within dbt Cloud you are able to then create sequential workflows, where a series of dbt jobs are triggered by the completion of the previous job. 
+<br>You are able to build a dashboard in Tableau or use dbt Cloud tests to monitor your workflows to ensure that they are running smoothly. If there are any errors, use the logging and error reporting features in Fivetran and dbt Cloud to troubleshoot the issue. 
+<br>There is the option to have a sequential workflow from the point of data integration from source though transformations through use Fivetran transformations (which run on dbt Core), however this would mean not using dbt Cloud and would arguably result in an over dependence on Fivetran, should a switch to another ETL option down the line be required. Given that for most regular reporting needs a near real time, or usually daily option, is more than enough, it is unlikely this is necessary. Other options such as Airflow are also available for orchestration. 
 
 
 **Advantages**
 <br>Scalability: BigQuery is a highly scalable data warehouse that can handle large volumes of data, making it well-suited for this use case.
-Ease of use: Fivetran and dbt Cloud and BigQuery are all cloud-based options that are easy to set up and use. They provide a user-friendly interface for data integration, storage and transformation.
-Data governance: dbt Cloud provides version control and testing capabilities, which are important for maintaining data governance and ensuring data accuracy. Fivetran handles schema and data changes for you ensuring data is always up to date and clean. 
-Integration: All tools chosen integrate seamlessly with one another with easy steps for upkeep monitoring and maintenance. 
-Visualization: Tableau provides a wide range of visualization options and is well-suited for creating user-friendly dashboards.
+<br>Ease of use: Fivetran and dbt Cloud and BigQuery are all cloud-based options that are easy to set up and use. They provide a user-friendly interface for data integration, storage and transformation.
+<br>Data governance: dbt Cloud provides version control and testing capabilities, which are important for maintaining data governance and ensuring data accuracy. Fivetran handles schema and data changes for you ensuring data is always up to date and clean. 
+<br>Integration: All tools chosen integrate seamlessly with one another with easy steps for upkeep monitoring and maintenance. 
+<br>Visualization: Tableau provides a wide range of visualization options and is well-suited for creating user-friendly dashboards.
 
 Overall, this stack provides a robust and scalable solution that ensures a seamless flow of data from source to dashboard.
 
